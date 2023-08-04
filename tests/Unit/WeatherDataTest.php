@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use App\Models\WeatherData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-
+use Database\Seeders\WeatherDataSeeder;
 class WeatherDataTest extends TestCase
 {
     use RefreshDatabase;
@@ -65,4 +65,9 @@ class WeatherDataTest extends TestCase
         ]);
 
     }
+    public function testWeatherDatabaseSeeder(): void {
+        $this -> seed(WeatherDataSeeder::class);
+        $this->assertDatabaseCount('weather_data', 10);
+    }
+
 }
