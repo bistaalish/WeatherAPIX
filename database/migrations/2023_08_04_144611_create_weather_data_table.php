@@ -18,8 +18,9 @@ class CreateWeatherDataTable extends Migration
             $table->float('temperature');
             $table->float('humidity');
             $table->float('wind_speed');
-            // Add more columns as needed for other weather data
-
+            $table->string('weather_condition');
+            $table->string('location');
+            $table->timestamp('recorded_at');
             $table->timestamps();
         });
     }
