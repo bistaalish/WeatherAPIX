@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class WeatherData extends Model
 {
@@ -11,6 +12,7 @@ class WeatherData extends Model
      *
      * @var string
      */
+    use HasFactory;
     protected $table = 'weather_data';
 
     /**
