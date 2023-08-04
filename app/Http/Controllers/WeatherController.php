@@ -31,15 +31,32 @@ class WeatherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'temperature' => 'required|numeric',
+            'humidity' => 'required|numeric',
+            'wind_speed' => 'required|numeric',
+            'weather_condition' => 'required|string',
+            'location' => 'required|string',
+            'recorded_at' => 'required|date',
+        ]);
+
+        $weatherData = WeatherData::create($data);
+
+        return response()->json($weatherData, 201);
     }
 
+
     /**
-     * Display the specified resource.
+     * Display the specified weather data by ID.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function show(string $id)
+
+    public function show(int $id)
     {
-        //
+
+        // Return a specific id
         $weatherData = WeatherData::find($id);
         if (!$weatherData) {
             return response()->json(['message' => 'Weather data not found'], 404);
@@ -60,7 +77,23 @@ class WeatherController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->validate([
+            'temperature' => 'required|numeric',
+            'humidity' => 'required|numeric',
+            'wind_speed' => 'required|numeric',
+            'weather_condition' => 'required|string',
+            'location' => 'required|string',
+            'recorded_at' => 'required|date',
+        ]);
+
+        $weatherData = WeatherData::find($id);
+        if (!$weatherData) {
+            return response()->json(['message' => 'Weather data not found'], 404);
+        }
+
+        $weatherData->update($data);
+
+        return response()->json($weatherData);
     }
 
     /**
@@ -68,6 +101,13 @@ class WeatherController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $weatherData = WeatherData::find($id);
+        if (!$weatherData) {
+            return response()->json(['message' => 'Weather data not found'], 404);
+        }
+
+        $weatherData->delete();
+
+        return response()->json(['message' => 'Weather data deleted successfully']);
     }
 }
