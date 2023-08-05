@@ -110,4 +110,23 @@ class WeatherController extends Controller
 
         return response()->json(['message' => 'Weather data deleted successfully']);
     }
+        /**
+     * Get weather data by location (city or coordinates).
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getWeatherDataByLocation(Request $request) {
+        // Validate the incoming request
+        $request->validate([
+            'location' => 'required|string',
+        ]);
+
+        // Fetch weather data by location
+        $location = $request->input('location');
+        $weatherData = WeatherData::where('location', $location)->get();
+
+        // Return the weather data as JSON response
+        return response()->json($weatherData);
+    }
 }

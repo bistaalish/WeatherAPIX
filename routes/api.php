@@ -26,6 +26,8 @@ Route::resource("weather",WeatherController::class,['names' => [
 ]
 ]);
 
+Route::get('/weather-data', [WeatherController::class,'getWeatherDataByLocation']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
